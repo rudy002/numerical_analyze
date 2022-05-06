@@ -2,7 +2,8 @@
 import sympy as sp
 import math
 from sympy import lambdify
-eps = 0.0001
+
+eps = 10 ** (-10)
 
 
 def Calculate_derivative(f):
@@ -39,13 +40,13 @@ def Bisection_Method(func, start, end):
     return c
 
 
-def Newton_Raphson(func, func_tag, start, end):
-    xr = (start+end)/2
+def Newton_Raphson(func: object, func_tag: object, start: object, end: object) -> object:
+    xr = (start + end) / 2
     f = lambdify(x, func)
     fn = lambdify(x, func_tag)
-    xr_1=xr-(f(xr)/fn(xr))
-    counter=1
-    while abs(xr-xr_1)>eps:
+    xr_1 = xr - (f(xr) / fn(xr))
+    counter = 1
+    while abs(xr - xr_1) > eps:
         if counter > 100:
             return "The function does not converge"
         xr = xr_1
@@ -60,34 +61,34 @@ def secant_method(func, start, end):
     xr_minus1 = start
     xr = end
     f = lambdify(x, func)
-    xr_1 = (xr_minus1*f(xr)-xr*f(xr_minus1))/(f(xr)-f(xr_minus1))
+    xr_1 = (xr_minus1 * f(xr) - xr * f(xr_minus1)) / (f(xr) - f(xr_minus1))
     counter = 1
     while abs(xr - xr_1) > eps:
         if counter > 100:
             return "The function does not converge"
-        xr_minus1=xr
-        xr=xr_1
-        xr_1=(xr_minus1*f(xr)-xr*f(xr_minus1))/(f(xr)-f(xr_minus1))
+        xr_minus1 = xr
+        xr = xr_1
+        xr_1 = (xr_minus1 * f(xr) - xr * f(xr_minus1)) / (f(xr) - f(xr_minus1))
         counter += 1
 
-    print("num of iterition {}".format(counter))
+    print("num of iteration {}".format(counter))
     return xr_1
 
 
-def help(func, start, end, n):
+def transition(func, start, end, n):
     f = lambdify(x, func)
     func_tag = Calculate_derivative(func)
     fn = lambdify(x, func_tag)
     next = start + 0.1
     next = round(next, 2)
-    while round(start,2) < end:
+    while round(start, 2) < end:
         if f(start) * f(next) < 0:
             if n == 1:
-                print("x = {}".format(round(Bisection_Method(func, start, next),6)))
+                print("x = {}".format(round(Bisection_Method(func, start, next), 6)))
             if n == 2:
-                print("x = {}".format(round(Newton_Raphson(func,func_tag, start, next),6)))
+                print("x = {}".format(round(Newton_Raphson(func, func_tag, start, next), 6)))
             if n == 3:
-                print("x = {}".format(round(secant_method(func, start, next),6)))
+                print("x = {}".format(round(secant_method(func, start, next), 6)))
         if f(start) == 0:
             print("x = {}".format(start))
 
@@ -100,7 +101,6 @@ def help(func, start, end, n):
 
 
 def main():
-
     choice = input("\nchoose method for solve :\n1 - Bisection Method\n - Newton-Raphson method\n3 - Secant Method\n")
 
     f = x ** 4 + 1 * x ** 3 - 3 * x ** 2
@@ -109,19 +109,16 @@ def main():
     end = 6
 
     if choice == "1":
-        help(f, start, end, int(choice))
+        transition(f, start, end, int(choice))
         main()
     elif choice == "2":
-        help(f, start, end, int(choice))
+        transition(f, start, end, int(choice))
         main()
     elif choice == "3":
-        help(f, start, end, int(choice))
+        transition(f, start, end, int(choice))
         main()
     else:
         print("end program. goodbye")
 
 
-
 main()
-
-
