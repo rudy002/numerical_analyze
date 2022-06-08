@@ -1,3 +1,8 @@
+# Gad Nadjar - 337744155
+# Shmuel Malikov - 313530537
+# Rudy Haddad - 337744155
+
+
 from typing import Tuple, List
 import bisect
 import math
@@ -491,8 +496,12 @@ def Polynomial_interpolation(points, find_point):
     for i in range(len(vector_a)):
         if i == 0:
             sum = vector_a[i][0]
+            print(sum)
         else:
             sum += vector_a[i][0] * find_point ** i
+            print(sum)
+
+
     return sum
 
 
@@ -526,10 +535,8 @@ def neville_interpolation(thePoints, findPoint):
     for i in range(len(thePoints)):
         for j in range(i, len(thePoints)):
             resMat[i][j] = P(i, j, thePoints, findPoint)
+            print(resMat[i][j])
     return resMat[0][len(thePoints) - 1]
-
-
-
 
 
 def compute_changes(x: List[float]) -> List[float]:
@@ -624,8 +631,9 @@ def main():
             print("Bye.")
             exit(1)
 
-        given_points = [[1, 0.7651], [1.3, 0.62], [1.6, 0.4554], [1.9, 0.2818], [2.2, 0.1103]]
-        val_point = 1.5
+        given_points = [[1.2, 1.5095], [1.3, 1.6984], [1.4, 1.9043], [1.5, 2.1293], [1.6, 2.3756]]
+        val_point = 1.47
+
         datax = [1, 1.3, 1.6, 1.9, 2.2]
         datay = [0.7651, 0.62, 0.4554, 0.2818, 0.1103]
         print("________________________________________")
